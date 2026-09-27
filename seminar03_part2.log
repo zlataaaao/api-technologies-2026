@@ -1,0 +1,501 @@
+Script started on 2026-09-27 14:51:34+03:00 [TERM="xterm-256color" TTY="/dev/pts/5" COLUMNS="120" LINES="30"]
+[?2004h]0;useruser@DESKTOP-S8B80KK: /mnt/c/Users/User/Desktop/3_апи/api-technologies-2026-seminar-03-api-interaction[01;32museruser@DESKTOP-S8B80KK[00m:[01;34m/mnt/c/Users/User/Desktop/3_апи/api-technologies-2026-seminar-03-api-interaction[00m$ 
+]0;useruser@DESKTOP-S8B80KK: /mnt/c/Users/User/Desktop/3_апи/api-technologies-2026-seminar-03-api-interaction[01;32museruser@DESKTOP-S8B80KK[00m:[01;34m/mnt/c/Users/User/Desktop/3_апи/api-technologies-2026-seminar-03-api-interaction[00m$ curl -i http://localhost:8001/v1/models
+[?2004l
+HTTP/1.1 200 OK
+
+[1mdate[0m: Sun, 27 Sep 2026 11:52:33 GMT
+
+[1mserver[0m: uvicorn
+
+[1mcontent-length[0m: 157
+
+[1mcontent-type[0m: application/json
+
+
+
+[{"id":"linear-score","description":"Returns numeric score from all features."},{"id":"risk-label","description":"Returns low, medium, or high from rules."}][?2004h]0;useruser@DESKTOP-S8B80KK: /mnt/c/Users/User/Desktop/3_апи/api-technologies-2026-seminar-03-api-interaction[01;32museruser@DESKTOP-S8B80KK[00m:[01;34m/mnt/c/Users/User/Desktop/3_апи/api-technologies-2026-seminar-03-api-interaction[00m$ 
+]0;useruser@DESKTOP-S8B80KK: /mnt/c/Users/User/Desktop/3_апи/api-technologies-2026-seminar-03-api-interaction[01;32museruser@DESKTOP-S8B80KK[00m:[01;34m/mnt/c/Users/User/Desktop/3_апи/api-technologies-2026-seminar-03-api-interaction[00m$ curl -i -X POST http://localhost:8001/v1/predict -H 'content-type: application/json' -d '{"model":"linear-score","feature1":42,"feature2":0.35,"feature3":"premium"}'
+[?2004l
+HTTP/1.1 200 OK
+
+[1mdate[0m: Sun, 27 Sep 2026 11:55:01 GMT
+
+[1mserver[0m: uvicorn
+
+[1mcontent-length[0m: 42
+
+[1mcontent-type[0m: application/json
+
+
+
+{"model":"linear-score","prediction":42.0}[?2004h]0;useruser@DESKTOP-S8B80KK: /mnt/c/Users/User/Desktop/3_апи/api-technologies-2026-seminar-03-api-interaction[01;32museruser@DESKTOP-S8B80KK[00m:[01;34m/mnt/c/Users/User/Desktop/3_апи/api-technologies-2026-seminar-03-api-interaction[00m$ 
+]0;useruser@DESKTOP-S8B80KK: /mnt/c/Users/User/Desktop/3_апи/api-technologies-2026-seminar-03-api-interaction[01;32museruser@DESKTOP-S8B80KK[00m:[01;34m/mnt/c/Users/User/Desktop/3_апи/api-technologies-2026-seminar-03-api-interaction[00m$ curl -i -X POST http://localhost:8001/v1/predict -H 'content-type: application/json' -d '{"model":"risk-label","feature1":42,"feature2":0.35,"feature3":"premium"}'
+[?2004l
+HTTP/1.1 200 OK
+
+[1mdate[0m: Sun, 27 Sep 2026 11:56:06 GMT
+
+[1mserver[0m: uvicorn
+
+[1mcontent-length[0m: 44
+
+[1mcontent-type[0m: application/json
+
+
+
+{"model":"risk-label","prediction":"medium"}[?2004h]0;useruser@DESKTOP-S8B80KK: /mnt/c/Users/User/Desktop/3_апи/api-technologies-2026-seminar-03-api-interaction[01;32museruser@DESKTOP-S8B80KK[00m:[01;34m/mnt/c/Users/User/Desktop/3_апи/api-technologies-2026-seminar-03-api-interaction[00m$ 
+]0;useruser@DESKTOP-S8B80KK: /mnt/c/Users/User/Desktop/3_апи/api-technologies-2026-seminar-03-api-interaction[01;32museruser@DESKTOP-S8B80KK[00m:[01;34m/mnt/c/Users/User/Desktop/3_апи/api-technologies-2026-seminar-03-api-interaction[00m$ curl -i -X POST http://localhost:8001/v1/predict -H 'content-type: application/json' -d '{"model":"unknown-model","feature1":42,"feature2":0.35,"feature3":"premium"}'
+[?2004l
+HTTP/1.1 404 Not Found
+
+[1mdate[0m: Sun, 27 Sep 2026 11:56:38 GMT
+
+[1mserver[0m: uvicorn
+
+[1mcontent-length[0m: 28
+
+[1mcontent-type[0m: application/json
+
+
+
+{"detail":"Model not found"}[?2004h]0;useruser@DESKTOP-S8B80KK: /mnt/c/Users/User/Desktop/3_апи/api-technologies-2026-seminar-03-api-interaction[01;32museruser@DESKTOP-S8B80KK[00m:[01;34m/mnt/c/Users/User/Desktop/3_апи/api-technologies-2026-seminar-03-api-interaction[00m$ 
+]0;useruser@DESKTOP-S8B80KK: /mnt/c/Users/User/Desktop/3_апи/api-technologies-2026-seminar-03-api-interaction[01;32museruser@DESKTOP-S8B80KK[00m:[01;34m/mnt/c/Users/User/Desktop/3_апи/api-technologies-2026-seminar-03-api-interaction[00m$ curl -i -X POST http://localhost:8001/v1/predict -H 'content-type: application/json' -d '{"model":"linear-score","feature1":200,"feature2":0.35,"feature3":"premium"}'
+[?2004l
+HTTP/1.1 422 Unprocessable Content
+
+[1mdate[0m: Sun, 27 Sep 2026 11:57:51 GMT
+
+[1mserver[0m: uvicorn
+
+[1mcontent-length[0m: 144
+
+[1mcontent-type[0m: application/json
+
+
+
+{"detail":[{"type":"less_than_equal","loc":["body","feature1"],"msg":"Input should be less than or equal to 100","input":200,"ctx":{"le":100}}]}[?2004h]0;useruser@DESKTOP-S8B80KK: /mnt/c/Users/User/Desktop/3_апи/api-technologies-2026-seminar-03-api-interaction[01;32museruser@DESKTOP-S8B80KK[00m:[01;34m/mnt/c/Users/User/Desktop/3_апи/api-technologies-2026-seminar-03-api-interaction[00m$ 
+]0;useruser@DESKTOP-S8B80KK: /mnt/c/Users/User/Desktop/3_апи/api-technologies-2026-seminar-03-api-interaction[01;32museruser@DESKTOP-S8B80KK[00m:[01;34m/mnt/c/Users/User/Desktop/3_апи/api-technologies-2026-seminar-03-api-interaction[00m$ curl -v -X POST http://localhost:8001/v1/predict -H 'content-type: application/json' -d '{"model":"linear-score","feature1":42,"feature2":0.35,"feature3":"premium"}'
+[?2004l
+Note: Unnecessary use of -X or --request, POST is already inferred.
+* Host localhost:8001 was resolved.
+* IPv6: ::1
+* IPv4: 127.0.0.1
+*   Trying [::1]:8001...
+* Established connection to localhost (::1 port 8001) from ::1 port 37356 
+* using HTTP/1.x
+> POST /v1/predict HTTP/1.1
+
+> Host: localhost:8001
+
+> User-Agent: curl/8.18.0
+
+> Accept: */*
+
+> content-type: application/json
+
+> Content-Length: 75
+
+> 
+
+* upload completely sent off: 75 bytes
+< HTTP/1.1 200 OK
+
+< date: Sun, 27 Sep 2026 11:58:10 GMT
+
+< server: uvicorn
+
+< content-length: 42
+
+< content-type: application/json
+
+< 
+
+* Connection #0 to host localhost:8001 left intact
+{"model":"linear-score","prediction":42.0}[?2004h]0;useruser@DESKTOP-S8B80KK: /mnt/c/Users/User/Desktop/3_апи/api-technologies-2026-seminar-03-api-interaction[01;32museruser@DESKTOP-S8B80KK[00m:[01;34m/mnt/c/Users/User/Desktop/3_апи/api-technologies-2026-seminar-03-api-interaction[00m$ 
+]0;useruser@DESKTOP-S8B80KK: /mnt/c/Users/User/Desktop/3_апи/api-technologies-2026-seminar-03-api-interaction[01;32museruser@DESKTOP-S8B80KK[00m:[01;34m/mnt/c/Users/User/Desktop/3_апи/api-technologies-2026-seminar-03-api-interaction[00m$ curl -v -X POST http://localhost:8001/v1/predict -H 'content-type: application/json' -d '{"model":"unknown-model","feature1":42,"feature2":0.35,"feature3":"premium"}'
+[?2004l
+Note: Unnecessary use of -X or --request, POST is already inferred.
+* Host localhost:8001 was resolved.
+* IPv6: ::1
+* IPv4: 127.0.0.1
+*   Trying [::1]:8001...
+* Established connection to localhost (::1 port 8001) from ::1 port 34548 
+* using HTTP/1.x
+> POST /v1/predict HTTP/1.1
+
+> Host: localhost:8001
+
+> User-Agent: curl/8.18.0
+
+> Accept: */*
+
+> content-type: application/json
+
+> Content-Length: 76
+
+> 
+
+* upload completely sent off: 76 bytes
+< HTTP/1.1 404 Not Found
+
+< date: Sun, 27 Sep 2026 11:58:37 GMT
+
+< server: uvicorn
+
+< content-length: 28
+
+< content-type: application/json
+
+< 
+
+* Connection #0 to host localhost:8001 left intact
+{"detail":"Model not found"}[?2004h]0;useruser@DESKTOP-S8B80KK: /mnt/c/Users/User/Desktop/3_апи/api-technologies-2026-seminar-03-api-interaction[01;32museruser@DESKTOP-S8B80KK[00m:[01;34m/mnt/c/Users/User/Desktop/3_апи/api-technologies-2026-seminar-03-api-interaction[00m$ 
+]0;useruser@DESKTOP-S8B80KK: /mnt/c/Users/User/Desktop/3_апи/api-technologies-2026-seminar-03-api-interaction[01;32museruser@DESKTOP-S8B80KK[00m:[01;34m/mnt/c/Users/User/Desktop/3_апи/api-technologies-2026-seminar-03-api-interaction[00m$ curl -i -X POST http://localhost:8002/v1/user -H 'content-type: application/json' -d '{"age": 25, "sex": "male"}'
+[?2004l
+HTTP/1.1 201 Created
+
+[1mdate[0m: Sun, 27 Sep 2026 11:58:58 GMT
+
+[1mserver[0m: uvicorn
+
+[1mcontent-length[0m: 13
+
+[1mcontent-type[0m: application/json
+
+
+
+{"user_id":1}[?2004h]0;useruser@DESKTOP-S8B80KK: /mnt/c/Users/User/Desktop/3_апи/api-technologies-2026-seminar-03-api-interaction[01;32museruser@DESKTOP-S8B80KK[00m:[01;34m/mnt/c/Users/User/Desktop/3_апи/api-technologies-2026-seminar-03-api-interaction[00m$ 
+]0;useruser@DESKTOP-S8B80KK: /mnt/c/Users/User/Desktop/3_апи/api-technologies-2026-seminar-03-api-interaction[01;32museruser@DESKTOP-S8B80KK[00m:[01;34m/mnt/c/Users/User/Desktop/3_апи/api-technologies-2026-seminar-03-api-interaction[00m$ 
+[K
+]0;useruser@DESKTOP-S8B80KK: /mnt/c/Users/User/Desktop/3_апи/api-technologies-2026-seminar-03-api-interaction[01;32museruser@DESKTOP-S8B80KK[00m:[01;34m/mnt/c/Users/User/Desktop/3_апи/api-technologies-2026-seminar-03-api-interaction[00m$ 
+]0;useruser@DESKTOP-S8B80KK: /mnt/c/Users/User/Desktop/3_апи/api-technologies-2026-seminar-03-api-interaction[01;32museruser@DESKTOP-S8B80KK[00m:[01;34m/mnt/c/Users/User/Desktop/3_апи/api-technologies-2026-seminar-03-api-interaction[00m$ curl -i -X POST http://localhost:8002/v1/user -H 'content-type: application/json' -d '{"age": 25, "sex": "male"}'[A
+]0;useruser@DESKTOP-S8B80KK: /mnt/c/Users/User/Desktop/3_апи/api-technologies-2026-seminar-03-api-interaction[01;32museruser@DESKTOP-S8B80KK[00m:[01;34m/mnt/c/Users/User/Desktop/3_апи/api-technologies-2026-seminar-03-api-interaction[00m$ [C[C[C[C[C[Cv -X POST http://localhost:8001/v1/predict -H 'content-type: application/json' -d '{"model":"unknow[53@n-model","feature1":42,"feature2":0.35,"feature3":"premium[C[C[C[A
+]0;useruser@DESKTOP-S8B80KK: /mnt/c/Users/User/Desktop/3_апи/api-technologies-2026-seminar-03-api-interaction[01;32museruser@DESKTOP-S8B80KK[00m:[01;34m/mnt/c/Users/User/Desktop/3_апи/api-technologies-2026-seminar-03-api-interaction[00m$ [C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[Clinear[1P-score[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[A
+]0;useruser@DESKTOP-S8B80KK: /mnt/c/Users/User/Desktop/3_апи/api-technologies-2026-seminar-03-api-interaction[01;32museruser@DESKTOP-S8B80KK[00m:[01;34m/mnt/c/Users/User/Desktop/3_апи/api-technologies-2026-seminar-03-api-interaction[00m$ [C[C[C[C[C[Ci
+
+[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[1@200[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[A
+]0;useruser@DESKTOP-S8B80KK: /mnt/c/Users/User/Desktop/3_апи/api-technologies-2026-seminar-03-api-interaction[01;32museruser@DESKTOP-S8B80KK[00m:[01;34m/mnt/c/Users/User/Desktop/3_апи/api-technologies-2026-seminar-03-api-interaction[00m$ [C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[Cunknown-model","feature1":42[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[A
+]0;useruser@DESKTOP-S8B80KK: /mnt/c/Users/User/Desktop/3_апи/api-technologies-2026-seminar-03-api-interaction[01;32museruser@DESKTOP-S8B80KK[00m:[01;34m/mnt/c/Users/User/Desktop/3_апи/api-technologies-2026-seminar-03-api-interaction[00m$ [C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[Crisk-l[3Pab[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[A
+]0;useruser@DESKTOP-S8B80KK: /mnt/c/Users/User/Desktop/3_апи/api-technologies-2026-seminar-03-api-interaction[01;32museruser@DESKTOP-S8B80KK[00m:[01;34m/mnt/c/Users/User/Desktop/3_апи/api-technologies-2026-seminar-03-api-interaction[00m$ [C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[Clinear[2@-score[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[A
+]0;useruser@DESKTOP-S8B80KK: /mnt/c/Users/User/Desktop/3_апи/api-technologies-2026-seminar-03-api-interaction[01;32museruser@DESKTOP-S8B80KK[00m:[01;34m/mnt/c/Users/User/Desktop/3_апи/api-technologies-2026-seminar-03-api-interaction[00m$ [C[C[C[C[C[C[C[Chttp://localhost:8001/v1/models[K
+
+[K[A[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[10Psudo usermod -aG docker $USER[4Pdocker compose up --build[9P--versioncompose up --build[5Pcp .env.example .envls[Kcd /mnt/c/Users/User/Desktop/3_апи/api-technologies-2026-seminar-03-api-interaction[3P
+]0;useruser@DESKTOP-S8B80KK: /mnt/c/Users/User/Desktop/3_апи/api-technologies-2026-seminar-03-api-interaction[01;32museruser@DESKTOP-S8B80KK[00m:[01;34m/mnt/c/Users/User/Desktop/3_апи/api-technologies-2026-seminar-03-api-interaction[00m$ [C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[51Pls /mnt/c/Users/User/Desktop/[K[9Pcd ~/Desktop/3_апи/api-technologies-2026-seminar-03-api-interaction[12@C:\Users\User\Desktop\3_апи\[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[Cls /mnt/c/[K[K[K[K[K[K[K[K[K[K[K
+]0;useruser@DESKTOP-S8B80KK: /mnt/c/Users/User/Desktop/3_апи/api-technologies-2026-seminar-03-api-interaction[01;32museruser@DESKTOP-S8B80KK[00m:[01;34m/mnt/c/Users/User/Desktop/3_апи/api-technologies-2026-seminar-03-api-interaction[00m$ 
+]0;useruser@DESKTOP-S8B80KK: /mnt/c/Users/User/Desktop/3_апи/api-technologies-2026-seminar-03-api-interaction[01;32museruser@DESKTOP-S8B80KK[00m:[01;34m/mnt/c/Users/User/Desktop/3_апи/api-technologies-2026-seminar-03-api-interaction[00m$ 
+]0;useruser@DESKTOP-S8B80KK: /mnt/c/Users/User/Desktop/3_апи/api-technologies-2026-seminar-03-api-interaction[01;32museruser@DESKTOP-S8B80KK[00m:[01;34m/mnt/c/Users/User/Desktop/3_апи/api-technologies-2026-seminar-03-api-interaction[00m$ 
+]0;useruser@DESKTOP-S8B80KK: /mnt/c/Users/User/Desktop/3_апи/api-technologies-2026-seminar-03-api-interaction[01;32museruser@DESKTOP-S8B80KK[00m:[01;34m/mnt/c/Users/User/Desktop/3_апи/api-technologies-2026-seminar-03-api-interaction[00m$ 
+]0;useruser@DESKTOP-S8B80KK: /mnt/c/Users/User/Desktop/3_апи/api-technologies-2026-seminar-03-api-interaction[01;32museruser@DESKTOP-S8B80KK[00m:[01;34m/mnt/c/Users/User/Desktop/3_апи/api-technologies-2026-seminar-03-api-interaction[00m$ 
+]0;useruser@DESKTOP-S8B80KK: /mnt/c/Users/User/Desktop/3_апи/api-technologies-2026-seminar-03-api-interaction[01;32museruser@DESKTOP-S8B80KK[00m:[01;34m/mnt/c/Users/User/Desktop/3_апи/api-technologies-2026-seminar-03-api-interaction[00m$ 
+]0;useruser@DESKTOP-S8B80KK: /mnt/c/Users/User/Desktop/3_апи/api-technologies-2026-seminar-03-api-interaction[01;32museruser@DESKTOP-S8B80KK[00m:[01;34m/mnt/c/Users/User/Desktop/3_апи/api-technologies-2026-seminar-03-api-interaction[00m$ curl -i -X POST http://localhost:8002/v1/user -H "content-type: application/json" -d '{"age": 25, "sex": "male"}'
+[?2004l
+HTTP/1.1 201 Created
+
+[1mdate[0m: Sun, 27 Sep 2026 12:00:16 GMT
+
+[1mserver[0m: uvicorn
+
+[1mcontent-length[0m: 13
+
+[1mcontent-type[0m: application/json
+
+Задание 3.
+
+Запрос 1: Получение списка моделей
+Метод: GET
+URL: http://localhost:8001/v1/models
+Заголовки: нет
+Тело: нет
+Код ответа: 200 OK
+Тело ответа:
+[
+  {"id": "linear-score", "description": "Returns numeric score from all features."},
+  {"id": "risk-label", "description": "Returns low, medium or high from rules."}
+]
+
+Запрос 2: Предсказание linear-score
+Метод: POST
+URL: http://localhost:8001/v1/predict
+Заголовки: Content-Type: application/json
+Тело: {"model": "linear-score", "feature1": 42, "feature2": 0.35, "feature3": "premium"}
+Код ответа: 200 OK
+Тело ответа: {"model": "linear-score", "prediction": 42.0}
+
+Запрос 3: Предсказание risk-label
+Метод: POST
+URL: http://localhost:8001/v1/predict
+Заголовки: Content-Type: application/json
+Тело: {"model": "risk-label", "feature1": 42, "feature2": 0.35, "feature3": "premium"}
+Код ответа: 200 OK
+Тело ответа: {"model": "risk-label", "prediction": "medium"}
+
+Запрос 4: Создание пользователя
+Метод: POST
+URL: http://localhost:8002/v1/user
+Заголовки: Content-Type: application/json
+Тело: {"age": 25, "sex": "male"}
+Код ответа: 201 Created
+Тело ответа: {"user_id": 8}
+
+Запрос 5: Получение пользователя по ID
+Метод: GET
+URL: http://localhost:8002/v1/user/8
+Заголовки: нет
+Тело: нет
+Код ответа: 200 OK
+Тело ответа: {"user_id": 8, "age": 25, "sex": "male"}
+
+Запрос 6: Изменение только возраста
+Метод: PUT
+URL: http://localhost:8002/v1/user/8
+Заголовки: Content-Type: application/json
+Тело: {"age": 30}
+Код ответа: 201 Created
+Тело ответа: {"user_id": 8, "age": 30, "sex": "male"}
+
+Запрос 7: Изменение обоих атрибутов
+Метод: PUT
+URL: http://localhost:8002/v1/user/8
+Заголовки: Content-Type: application/json
+Тело: {"age": 35, "sex": "female"}
+Код ответа: 201 Created
+Тело ответа: {"user_id": 8, "age": 35, "sex": "female"}
+
+
+{"user_id":2}[?2004h]0;useruser@DESKTOP-S8B80KK: /mnt/c/Users/User/Desktop/3_апи/api-technologies-2026-seminar-03-api-interaction[01;32museruser@DESKTOP-S8B80KK[00m:[01;34m/mnt/c/Users/User/Desktop/3_апи/api-technologies-2026-seminar-03-api-interaction[00m$ 
+]0;useruser@DESKTOP-S8B80KK: /mnt/c/Users/User/Desktop/3_апи/api-technologies-2026-seminar-03-api-interaction[01;32museruser@DESKTOP-S8B80KK[00m:[01;34m/mnt/c/Users/User/Desktop/3_апи/api-technologies-2026-seminar-03-api-interaction[00m$ grep "user_id" seminar03.log
+[?2004l
+{"[01;31m[Kuser_id[m[K":1}[?2004h]0;useruser@DESKTOP-S8B80KK: /mnt/c/Users/User/Desktop/3_апи/api-technologies-2026-seminar-03-api-interaction[01;32museruser@DESKTOP-S8B80KK[00m:[01;34m/mnt/c/Users/User/Desktop/3_апи/api-technologies-2026-seminar-03-api-interaction[00m$ 
+]0;useruser@DESKTOP-S8B80KK: /mnt/c/Users/User/Desktop/3_апи/api-technologies-2026-seminar-03-api-interaction[01;32museruser@DESKTOP-S8B80KK[00m:[01;34m/mnt/c/Users/User/Desktop/3_апи/api-technologies-2026-seminar-03-api-interaction[00m$ 
+[K
+]0;useruser@DESKTOP-S8B80KK: /mnt/c/Users/User/Desktop/3_апи/api-technologies-2026-seminar-03-api-interaction[01;32museruser@DESKTOP-S8B80KK[00m:[01;34m/mnt/c/Users/User/Desktop/3_апи/api-technologies-2026-seminar-03-api-interaction[00m$ 
+]0;useruser@DESKTOP-S8B80KK: /mnt/c/Users/User/Desktop/3_апи/api-technologies-2026-seminar-03-api-interaction[01;32museruser@DESKTOP-S8B80KK[00m:[01;34m/mnt/c/Users/User/Desktop/3_апи/api-technologies-2026-seminar-03-api-interaction[00m$ curl -i -X POST http://localhost:8002/v1/user -H 'content-type: application/json' -d '{"age": 25, "sex": "male"}'[A
+]0;useruser@DESKTOP-S8B80KK: /mnt/c/Users/User/Desktop/3_апи/api-technologies-2026-seminar-03-api-interaction[01;32museruser@DESKTOP-S8B80KK[00m:[01;34m/mnt/c/Users/User/Desktop/3_апи/api-technologies-2026-seminar-03-api-interaction[00m$ [C[C[C[C[C[Cv -X POST http://localhost:8001/v1/predict -H 'content-type: application/json' -d '{"model":"unknow[53@n-model","feature1":42,"feature2":0.35,"feature3":"premium[C[C[C[A
+]0;useruser@DESKTOP-S8B80KK: /mnt/c/Users/User/Desktop/3_апи/api-technologies-2026-seminar-03-api-interaction[01;32museruser@DESKTOP-S8B80KK[00m:[01;34m/mnt/c/Users/User/Desktop/3_апи/api-technologies-2026-seminar-03-api-interaction[00m$ [C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[Clinear[1P-score[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[A
+]0;useruser@DESKTOP-S8B80KK: /mnt/c/Users/User/Desktop/3_апи/api-technologies-2026-seminar-03-api-interaction[01;32museruser@DESKTOP-S8B80KK[00m:[01;34m/mnt/c/Users/User/Desktop/3_апи/api-technologies-2026-seminar-03-api-interaction[00m$ [C[C[C[C[C[Ci
+
+[?2004h]0;useruser@DESKTOP-S8B80KK: /mnt/c/Users/User/Desktop/3_апи/api-technologies-2026-seminar-03-api-interaction[01;32museruser@DESKTOP-S8B80KK[00m:[01;34m/mnt/c/Users/User/Desktop/3_апи/api-technologies-2026-seminar-03-api-interaction[00m$ 
+]0;useruser@DESKTOP-S8B80KK: /mnt/c/Users/User/Desktop/3_апи/api-technologies-2026-seminar-03-api-interaction[01;32museruser@DESKTOP-S8B80KK[00m:[01;34m/mnt/c/Users/User/Desktop/3_апи/api-technologies-2026-seminar-03-api-interaction[00m$ curl -s -X POST http://localhost:8002/v1/user -H "content-type: application/json" -d '{"age": 30, "sex": "female"}'
+[?2004l
+{"user_id":3}[?2004h]0;useruser@DESKTOP-S8B80KK: /mnt/c/Users/User/Desktop/3_апи/api-technologies-2026-seminar-03-api-interaction[01;32museruser@DESKTOP-S8B80KK[00m:[01;34m/mnt/c/Users/User/Desktop/3_апи/api-technologies-2026-seminar-03-api-interaction[00m$ 
+]0;useruser@DESKTOP-S8B80KK: /mnt/c/Users/User/Desktop/3_апи/api-technologies-2026-seminar-03-api-interaction[01;32museruser@DESKTOP-S8B80KK[00m:[01;34m/mnt/c/Users/User/Desktop/3_апи/api-technologies-2026-seminar-03-api-interaction[00m$ 
+]0;useruser@DESKTOP-S8B80KK: /mnt/c/Users/User/Desktop/3_апи/api-technologies-2026-seminar-03-api-interaction[01;32museruser@DESKTOP-S8B80KK[00m:[01;34m/mnt/c/Users/User/Desktop/3_апи/api-technologies-2026-seminar-03-api-interaction[00m$ ^C[?2004l
+[?2004h[?2004l
+
+[?2004h]0;useruser@DESKTOP-S8B80KK: /mnt/c/Users/User/Desktop/3_апи/api-technologies-2026-seminar-03-api-interaction[01;32museruser@DESKTOP-S8B80KK[00m:[01;34m/mnt/c/Users/User/Desktop/3_апи/api-technologies-2026-seminar-03-api-interaction[00m$ 
+]0;useruser@DESKTOP-S8B80KK: /mnt/c/Users/User/Desktop/3_апи/api-technologies-2026-seminar-03-api-interaction[01;32museruser@DESKTOP-S8B80KK[00m:[01;34m/mnt/c/Users/User/Desktop/3_апи/api-technologies-2026-seminar-03-api-interaction[00m$ curl -s -X POST http://localhost:8002/v1/user -H "content-type: application/json" -d '{"age": 30, "sex": "female"}'
+[?2004l
+{"user_id":4}[?2004h]0;useruser@DESKTOP-S8B80KK: /mnt/c/Users/User/Desktop/3_апи/api-technologies-2026-seminar-03-api-interaction[01;32museruser@DESKTOP-S8B80KK[00m:[01;34m/mnt/c/Users/User/Desktop/3_апи/api-technologies-2026-seminar-03-api-interaction[00m$ 
+]0;useruser@DESKTOP-S8B80KK: /mnt/c/Users/User/Desktop/3_апи/api-technologies-2026-seminar-03-api-interaction[01;32museruser@DESKTOP-S8B80KK[00m:[01;34m/mnt/c/Users/User/Desktop/3_апи/api-technologies-2026-seminar-03-api-interaction[00m$ curl -i -X POST http://localhost:8002/v1/user -H "content-type: application/json" -d '{"age": 25, "sex": "male"}'
+[?2004l
+HTTP/1.1 201 Created
+
+[1mdate[0m: Sun, 27 Sep 2026 12:05:08 GMT
+
+[1mserver[0m: uvicorn
+
+[1mcontent-length[0m: 13
+
+[1mcontent-type[0m: application/json
+
+
+
+{"user_id":5}[?2004h]0;useruser@DESKTOP-S8B80KK: /mnt/c/Users/User/Desktop/3_апи/api-technologies-2026-seminar-03-api-interaction[01;32museruser@DESKTOP-S8B80KK[00m:[01;34m/mnt/c/Users/User/Desktop/3_апи/api-technologies-2026-seminar-03-api-interaction[00m$ 
+]0;useruser@DESKTOP-S8B80KK: /mnt/c/Users/User/Desktop/3_апи/api-technologies-2026-seminar-03-api-interaction[01;32museruser@DESKTOP-S8B80KK[00m:[01;34m/mnt/c/Users/User/Desktop/3_апи/api-technologies-2026-seminar-03-api-interaction[00m$ ^C[?2004l
+[?2004h
+Script done on 2026-09-27 15:07:30+03:00 [COMMAND_EXIT_CODE="0"]
+
+Script started on 2026-09-27 15:07:50+03:00 [TERM="xterm-256color" TTY="/dev/pts/5" COLUMNS="120" LINES="30"]
+[?2004h]0;useruser@DESKTOP-S8B80KK: /mnt/c/Users/User/Desktop/3_апи/api-technologies-2026-seminar-03-api-interaction[01;32museruser@DESKTOP-S8B80KK[00m:[01;34m/mnt/c/Users/User/Desktop/3_апи/api-technologies-2026-seminar-03-api-interaction[00m$ ]0;useruser@DESKTOP-S8B80KK: /mnt/c/Users/User/Desktop/3_апи/api-technologies-2026-seminar-03-api-interaction[01;32museruser@DESKTOP-S8B80KK[00m:[01;34m/mnt/c/Users/User/Desktop/3_апи/api-technologies-2026-seminar-03-api-interaction[00m$ docker ps
+[?2004lCONTAINER ID   IMAGE                                                            COMMAND                  CREATED          STATUS          PORTS                                         NAMES
+415dd7df1caa   api-technologies-2026-seminar-03-api-interaction-ml-service      "uvicorn services.ml…"   17 minutes ago   Up 17 minutes   0.0.0.0:8001->8001/tcp, [::]:8001->8001/tcp   api-technologies-2026-seminar-03-api-interaction-ml-service-1
+4cd5b4ebf76d   api-technologies-2026-seminar-03-api-interaction-csv-processor   "uvicorn services.cs…"   17 minutes ago   Up 17 minutes   0.0.0.0:8003->8003/tcp, [::]:8003->8003/tcp   api-technologies-2026-seminar-03-api-interaction-csv-processor-1
+8a399ff3f087   api-technologies-2026-seminar-03-api-interaction-user-service    "uvicorn services.us…"   17 minutes ago   Up 17 minutes   0.0.0.0:8002->8002/tcp, [::]:8002->8002/tcp   api-technologies-2026-seminar-03-api-interaction-user-service-1
+[?2004h]0;useruser@DESKTOP-S8B80KK: /mnt/c/Users/User/Desktop/3_апи/api-technologies-2026-seminar-03-api-interaction[01;32museruser@DESKTOP-S8B80KK[00m:[01;34m/mnt/c/Users/User/Desktop/3_апи/api-technologies-2026-seminar-03-api-interaction[00m$ ]0;useruser@DESKTOP-S8B80KK: /mnt/c/Users/User/Desktop/3_апи/api-technologies-2026-seminar-03-api-interaction[01;32museruser@DESKTOP-S8B80KK[00m:[01;34m/mnt/c/Users/User/Desktop/3_апи/api-technologies-2026-seminar-03-api-interaction[00m$ curl -s -X POST http://localhost:8002/v1/user -H "content-type: application/json" -d '{"age": 25, "sex": "male"}' > response.json &&  cat response.json
+[?2004l{"user_id":6}[?2004h]0;useruser@DESKTOP-S8B80KK: /mnt/c/Users/User/Desktop/3_апи/api-technologies-2026-seminar-03-api-interaction[01;32museruser@DESKTOP-S8B80KK[00m:[01;34m/mnt/c/Users/User/Desktop/3_апи/api-technologies-2026-seminar-03-api-interaction[00m$ ]0;useruser@DESKTOP-S8B80KK: /mnt/c/Users/User/Desktop/3_апи/api-technologies-2026-seminar-03-api-interaction[01;32museruser@DESKTOP-S8B80KK[00m:[01;34m/mnt/c/Users/User/Desktop/3_апи/api-technologies-2026-seminar-03-api-interaction[00m$ Ф[K]0;useruser@DESKTOP-S8B80KK: /mnt/c/Users/User/Desktop/3_апи/api-technologies-2026-seminar-03-api-interaction[01;32museruser@DESKTOP-S8B80KK[00m:[01;34m/mnt/c/Users/User/Desktop/3_апи/api-technologies-2026-seminar-03-api-interaction[00m$ ls -la response.json
+[?2004l-rwxrwxrwx 1 root root 13 Sep 27 15:08 [0m[01;32mresponse.json[0m
+[?2004h]0;useruser@DESKTOP-S8B80KK: /mnt/c/Users/User/Desktop/3_апи/api-technologies-2026-seminar-03-api-interaction[01;32museruser@DESKTOP-S8B80KK[00m:[01;34m/mnt/c/Users/User/Desktop/3_апи/api-technologies-2026-seminar-03-api-interaction[00m$ ]0;useruser@DESKTOP-S8B80KK: /mnt/c/Users/User/Desktop/3_апи/api-technologies-2026-seminar-03-api-interaction[01;32museruser@DESKTOP-S8B80KK[00m:[01;34m/mnt/c/Users/User/Desktop/3_апи/api-technologies-2026-seminar-03-api-interaction[00m$ curl -i http://localhost:8002/v1/user/7
+[?2004lHTTP/1.1 200 OK
+[1mdate[0m: Sun, 27 Sep 2026 12:15:04 GMT
+[1mserver[0m: uvicorn
+[1mcontent-length[0m: 35
+[1mcontent-type[0m: application/json
+
+{"user_id":7,"age":24,"sex":"male"}[?2004h]0;useruser@DESKTOP-S8B80KK: /mnt/c/Users/User/Desktop/3_апи/api-technologies-2026-seminar-03-api-interaction[01;32museruser@DESKTOP-S8B80KK[00m:[01;34m/mnt/c/Users/User/Desktop/3_апи/api-technologies-2026-seminar-03-api-interaction[00m$ ]0;useruser@DESKTOP-S8B80KK: /mnt/c/Users/User/Desktop/3_апи/api-technologies-2026-seminar-03-api-interaction[01;32museruser@DESKTOP-S8B80KK[00m:[01;34m/mnt/c/Users/User/Desktop/3_апи/api-technologies-2026-seminar-03-api-interaction[00m$ curl -i -X PUT http://localhost:8002/v1/user/7 -H "content-type: application/json" -d '{"age": 30}'
+[?2004lHTTP/1.1 201 Created
+[1mdate[0m: Sun, 27 Sep 2026 12:15:23 GMT
+[1mserver[0m: uvicorn
+[1mcontent-length[0m: 35
+[1mcontent-type[0m: application/json
+
+{"user_id":7,"age":30,"sex":"male"}[?2004h]0;useruser@DESKTOP-S8B80KK: /mnt/c/Users/User/Desktop/3_апи/api-technologies-2026-seminar-03-api-interaction[01;32museruser@DESKTOP-S8B80KK[00m:[01;34m/mnt/c/Users/User/Desktop/3_апи/api-technologies-2026-seminar-03-api-interaction[00m$ ]0;useruser@DESKTOP-S8B80KK: /mnt/c/Users/User/Desktop/3_апи/api-technologies-2026-seminar-03-api-interaction[01;32museruser@DESKTOP-S8B80KK[00m:[01;34m/mnt/c/Users/User/Desktop/3_апи/api-technologies-2026-seminar-03-api-interaction[00m$ В[K]0;useruser@DESKTOP-S8B80KK: /mnt/c/Users/User/Desktop/3_апи/api-technologies-2026-seminar-03-api-interaction[01;32museruser@DESKTOP-S8B80KK[00m:[01;34m/mnt/c/Users/User/Desktop/3_апи/api-technologies-2026-seminar-03-api-interaction[00m$ curl -i -X PUT http://localhost:8002/v1/user/7 -H "content-type: application/json" -d '{"sex": "female"}'
+[?2004lHTTP/1.1 201 Created
+[1mdate[0m: Sun, 27 Sep 2026 12:15:47 GMT
+[1mserver[0m: uvicorn
+[1mcontent-length[0m: 37
+[1mcontent-type[0m: application/json
+
+{"user_id":7,"age":30,"sex":"female"}[?2004h]0;useruser@DESKTOP-S8B80KK: /mnt/c/Users/User/Desktop/3_апи/api-technologies-2026-seminar-03-api-interaction[01;32museruser@DESKTOP-S8B80KK[00m:[01;34m/mnt/c/Users/User/Desktop/3_апи/api-technologies-2026-seminar-03-api-interaction[00m$ ]0;useruser@DESKTOP-S8B80KK: /mnt/c/Users/User/Desktop/3_апи/api-technologies-2026-seminar-03-api-interaction[01;32museruser@DESKTOP-S8B80KK[00m:[01;34m/mnt/c/Users/User/Desktop/3_апи/api-technologies-2026-seminar-03-api-interaction[00m$ curl -i -X PUT http://localhost:8002/v1/user/7 -H "content-type: application/json" -d '{"age": 35, "sex": "male"}'
+[?2004lHTTP/1.1 201 Created
+[1mdate[0m: Sun, 27 Sep 2026 12:16:16 GMT
+[1mserver[0m: uvicorn
+[1mcontent-length[0m: 35
+[1mcontent-type[0m: application/json
+
+{"user_id":7,"age":35,"sex":"male"}[?2004h]0;useruser@DESKTOP-S8B80KK: /mnt/c/Users/User/Desktop/3_апи/api-technologies-2026-seminar-03-api-interaction[01;32museruser@DESKTOP-S8B80KK[00m:[01;34m/mnt/c/Users/User/Desktop/3_апи/api-technologies-2026-seminar-03-api-interaction[00m$ ]0;useruser@DESKTOP-S8B80KK: /mnt/c/Users/User/Desktop/3_апи/api-technologies-2026-seminar-03-api-interaction[01;32museruser@DESKTOP-S8B80KK[00m:[01;34m/mnt/c/Users/User/Desktop/3_апи/api-technologies-2026-seminar-03-api-interaction[00m$ curl -i -X PUT http://localhost:8002/v1/user/7 -H "content-type: application/json" -d '{"age": 100}'
+[?2004lHTTP/1.1 422 Unprocessable Content
+[1mdate[0m: Sun, 27 Sep 2026 12:16:37 GMT
+[1mserver[0m: uvicorn
+[1mcontent-length[0m: 137
+[1mcontent-type[0m: application/json
+
+{"detail":[{"type":"less_than_equal","loc":["body","age"],"msg":"Input should be less than or equal to 90","input":100,"ctx":{"le":90}}]}[?2004h]0;useruser@DESKTOP-S8B80KK: /mnt/c/Users/User/Desktop/3_апи/api-technologies-2026-seminar-03-api-interaction[01;32museruser@DESKTOP-S8B80KK[00m:[01;34m/mnt/c/Users/User/Desktop/3_апи/api-technologies-2026-seminar-03-api-interaction[00m$ ]0;useruser@DESKTOP-S8B80KK: /mnt/c/Users/User/Desktop/3_апи/api-technologies-2026-seminar-03-api-interaction[01;32museruser@DESKTOP-S8B80KK[00m:[01;34m/mnt/c/Users/User/Desktop/3_апи/api-technologies-2026-seminar-03-api-interaction[00m$ curl -i -X PUT http://localhost:8002/v1/user/7 -H "content-type: application/json" -d '{"sex": "other"}'
+[?2004lHTTP/1.1 422 Unprocessable Content
+[1mdate[0m: Sun, 27 Sep 2026 12:16:43 GMT
+[1mserver[0m: uvicorn
+[1mcontent-length[0m: 148
+[1mcontent-type[0m: application/json
+
+{"detail":[{"type":"enum","loc":["body","sex"],"msg":"Input should be 'male' or 'female'","input":"other","ctx":{"expected":"'male' or 'female'"}}]}[?2004h]0;useruser@DESKTOP-S8B80KK: /mnt/c/Users/User/Desktop/3_апи/api-technologies-2026-seminar-03-api-interaction[01;32museruser@DESKTOP-S8B80KK[00m:[01;34m/mnt/c/Users/User/Desktop/3_апи/api-technologies-2026-seminar-03-api-interaction[00m$ ]0;useruser@DESKTOP-S8B80KK: /mnt/c/Users/User/Desktop/3_апи/api-technologies-2026-seminar-03-api-interaction[01;32museruser@DESKTOP-S8B80KK[00m:[01;34m/mnt/c/Users/User/Desktop/3_апи/api-technologies-2026-seminar-03-api-interaction[00m$ curl -i http://localhost:8002/v1/user/9999
+[?2004lHTTP/1.1 404 Not Found
+[1mdate[0m: Sun, 27 Sep 2026 12:16:54 GMT
+[1mserver[0m: uvicorn
+[1mcontent-length[0m: 27
+[1mcontent-type[0m: application/json
+
+{"detail":"User not found"}[?2004h]0;useruser@DESKTOP-S8B80KK: /mnt/c/Users/User/Desktop/3_апи/api-technologies-2026-seminar-03-api-interaction[01;32museruser@DESKTOP-S8B80KK[00m:[01;34m/mnt/c/Users/User/Desktop/3_апи/api-technologies-2026-seminar-03-api-interaction[00m$ ]0;useruser@DESKTOP-S8B80KK: /mnt/c/Users/User/Desktop/3_апи/api-technologies-2026-seminar-03-api-interaction[01;32museruser@DESKTOP-S8B80KK[00m:[01;34m/mnt/c/Users/User/Desktop/3_апи/api-technologies-2026-seminar-03-api-interaction[00m$ TOKEN="9b6288cfe110f76d8cf8894b4d7e1af6b24c80f68e51d587419901ffad6f0f684429c4921c1ed5a645d8cb8083cf1112a8aa9fa23590a81b2801820957d2375e"
+[?2004l[?2004h]0;useruser@DESKTOP-S8B80KK: /mnt/c/Users/User/Desktop/3_апи/api-technologies-2026-seminar-03-api-interaction[01;32museruser@DESKTOP-S8B80KK[00m:[01;34m/mnt/c/Users/User/Desktop/3_апи/api-technologies-2026-seminar-03-api-interaction[00m$ ]0;useruser@DESKTOP-S8B80KK: /mnt/c/Users/User/Desktop/3_апи/api-technologies-2026-seminar-03-api-interaction[01;32museruser@DESKTOP-S8B80KK[00m:[01;34m/mnt/c/Users/User/Desktop/3_апи/api-technologies-2026-seminar-03-api-interaction[00m$ curl -i http://localhost:8003/v1/example
+[?2004lHTTP/1.1 200 OK
+[1mdate[0m: Sun, 27 Sep 2026 12:54:04 GMT
+[1mserver[0m: uvicorn
+[1mcontent-length[0m: 53
+[1mcontent-type[0m: text/plain; charset=utf-8
+
+feature1,feature2,feature3
+1,2.5,hello
+10,0.75,world
+[?2004h]0;useruser@DESKTOP-S8B80KK: /mnt/c/Users/User/Desktop/3_апи/api-technologies-2026-seminar-03-api-interaction[01;32museruser@DESKTOP-S8B80KK[00m:[01;34m/mnt/c/Users/User/Desktop/3_апи/api-technologies-2026-seminar-03-api-interaction[00m$ ]0;useruser@DESKTOP-S8B80KK: /mnt/c/Users/User/Desktop/3_апи/api-technologies-2026-seminar-03-api-interaction[01;32museruser@DESKTOP-S8B80KK[00m:[01;34m/mnt/c/Users/User/Desktop/3_апи/api-technologies-2026-seminar-03-api-interaction[00m$ curl -i -X POST http://localhost:8003/v1/process \
+[?2004lthorizat[?2004h> -H "Authorization: Bearer $TOKEN" \
+[?2004l[?2004h> -H 'Content-Type: text/csv' \
+[?2004l[?2004h> --data-binary $'feature1,feature2,feature3\n1,2.5,hello\n10,0.75,world\n'
+[?2004lHTTP/1.1 401 Unauthorized
+[1mdate[0m: Sun, 27 Sep 2026 12:54:52 GMT
+[1mserver[0m: uvicorn
+[1mcontent-length[0m: 33
+[1mcontent-type[0m: application/json
+
+{"detail":"Invalid bearer token"}[?2004h]0;useruser@DESKTOP-S8B80KK: /mnt/c/Users/User/Desktop/3_апи/api-technologies-2026-seminar-03-api-interaction[01;32museruser@DESKTOP-S8B80KK[00m:[01;34m/mnt/c/Users/User/Desktop/3_апи/api-technologies-2026-seminar-03-api-interaction[00m$ ]0;useruser@DESKTOP-S8B80KK: /mnt/c/Users/User/Desktop/3_апи/api-technologies-2026-seminar-03-api-interaction[01;32museruser@DESKTOP-S8B80KK[00m:[01;34m/mnt/c/Users/User/Desktop/3_апи/api-technologies-2026-seminar-03-api-interaction[00m$ TOKEN="9b6288cfe110f76d8cf8894b4d7e1af6b24c80f68e51d587419901ffad6f0f684429c4921c1ed5a645d8cb8083cf1112a8aa9fa23590a81b2801820957d2375eЭ[K"
+[?2004l[?2004h]0;useruser@DESKTOP-S8B80KK: /mnt/c/Users/User/Desktop/3_апи/api-technologies-2026-seminar-03-api-interaction[01;32museruser@DESKTOP-S8B80KK[00m:[01;34m/mnt/c/Users/User/Desktop/3_апи/api-technologies-2026-seminar-03-api-interaction[00m$ ]0;useruser@DESKTOP-S8B80KK: /mnt/c/Users/User/Desktop/3_апи/api-technologies-2026-seminar-03-api-interaction[01;32museruser@DESKTOP-S8B80KK[00m:[01;34m/mnt/c/Users/User/Desktop/3_апи/api-technologies-2026-seminar-03-api-interaction[00m$ echo $TOKEN
+[?2004l9b6288cfe110f76d8cf8894b4d7e1af6b24c80f68e51d587419901ffad6f0f684429c4921c1ed5a645d8cb8083cf1112a8aa9fa23590a81b2801820957d2375e
+[?2004h]0;useruser@DESKTOP-S8B80KK: /mnt/c/Users/User/Desktop/3_апи/api-technologies-2026-seminar-03-api-interaction[01;32museruser@DESKTOP-S8B80KK[00m:[01;34m/mnt/c/Users/User/Desktop/3_апи/api-technologies-2026-seminar-03-api-interaction[00m$ ]0;useruser@DESKTOP-S8B80KK: /mnt/c/Users/User/Desktop/3_апи/api-technologies-2026-seminar-03-api-interaction[01;32museruser@DESKTOP-S8B80KK[00m:[01;34m/mnt/c/Users/User/Desktop/3_апи/api-technologies-2026-seminar-03-api-interaction[00m$ curl -i -X PO ST http://localhost:8003/v1/process \
+[?2004l[?2004h> -H "Authorization: Bearer $TOKEN" \
+[?2004l[?2004h> -H 'Content-Type: text/csv' \
+[?2004l[?2004h> --data-binary $'feature1,feature2,feature3\n1,2.5,hello\n10,0.75,world\n'[C[Ccurl -i -X POST http://localhost:8003/v1/process -H "Authorization: Bearer $TOKEN" -H 'Content-Type: text/csv' \[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[Kcurl -i -X POST http://localhost:8003/v1/process \
+[?2004l[?2004h> -H "Authorization: Bearer $TOKEN" \
+[?2004l[?2004h> -H 'Content-Type: text/csv' \
+[?2004l[?2004h> --data-binary $'feature1,feature2,feature3\n1,2.5,hello\n10,0.75,world\n'[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[Kcurl -i -X POST http://localhost:8003/v1/process -H "Authorization: Bearer $TOKEN" -H 'Content-Type: text/csv' curl -i -X POST http://localhost:8003/v1/process -H "Authorization: Bearer $TOKEN" -H 'Content-Type: text/csv' \[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[A[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[K
+[K[A[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[Kecho $TOKEN[K[K[K[K[K[K[K[K[K[K[KTOKEN="9b6288cfe110f76d8cf8894b4d7e1af6b24c80f68e51d587419901ffad6f0f684429c4921c1ed5a645d8cb8083cf1112a8aa9fa23590a81b2801820957d2375e"[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[A[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[K
+[K[A[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[Kcurl -i -X POST http://localhost:8003/v1/process -H "Authorization: Bearer $TOKEN" -H 'Content-Type: text/csv' --data-binary $'feature1,feature2,feature3\n1,2.5,hello\n10,0.75,world\n'[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[A[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[K
+[K[A[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K
+[?2004lHTTP/1.1 401 Unauthorized
+[1mdate[0m: Sun, 27 Sep 2026 12:58:18 GMT
+[1mserver[0m: uvicorn
+[1mcontent-length[0m: 33
+[1mcontent-type[0m: application/json
+
+{"detail":"Invalid bearer token"}curl: (6) Could not resolve host: curl
+HTTP/1.1 401 Unauthorized
+[1mdate[0m: Sun, 27 Sep 2026 12:58:21 GMT
+[1mserver[0m: uvicorn
+[1mcontent-length[0m: 33
+[1mcontent-type[0m: application/json
+
+{"detail":"Invalid bearer token"}[?2004h]0;useruser@DESKTOP-S8B80KK: /mnt/c/Users/User/Desktop/3_апи/api-technologies-2026-seminar-03-api-interaction[01;32museruser@DESKTOP-S8B80KK[00m:[01;34m/mnt/c/Users/User/Desktop/3_апи/api-technologies-2026-seminar-03-api-interaction[00m$ ]0;useruser@DESKTOP-S8B80KK: /mnt/c/Users/User/Desktop/3_апи/api-technologies-2026-seminar-03-api-interaction[01;32museruser@DESKTOP-S8B80KK[00m:[01;34m/mnt/c/Users/User/Desktop/3_апи/api-technologies-2026-seminar-03-api-interaction[00m$ curl -i -X POST http://localhost:8003/v1/process \
+[?2004lzation:[?2004h> -H "Authorization: Bearer $TOKEN" \
+[?2004l[?2004h> -H 'Content-Type: text/csv' \
+[?2004l[?2004h> --data-binary $'feature1,feature2,feature3\n1,2.5,hello\n10,0.75,world\n'
+[?2004lHTTP/1.1 401 Unauthorized
+[1mdate[0m: Sun, 27 Sep 2026 12:58:35 GMT
+[1mserver[0m: uvicorn
+[1mcontent-length[0m: 33
+[1mcontent-type[0m: application/json
+
+{"detail":"Invalid bearer token"}[?2004h]0;useruser@DESKTOP-S8B80KK: /mnt/c/Users/User/Desktop/3_апи/api-technologies-2026-seminar-03-api-interaction[01;32museruser@DESKTOP-S8B80KK[00m:[01;34m/mnt/c/Users/User/Desktop/3_апи/api-technologies-2026-seminar-03-api-interaction[00m$ ]0;useruser@DESKTOP-S8B80KK: /mnt/c/Users/User/Desktop/3_апи/api-technologies-2026-seminar-03-api-interaction[01;32museruser@DESKTOP-S8B80KK[00m:[01;34m/mnt/c/Users/User/Desktop/3_апи/api-technologies-2026-seminar-03-api-interaction[00m$ echo $TOKEN
+[?2004l9b6288cfe110f76d8cf8894b4d7e1af6b24c80f68e51d587419901ffad6f0f684429c4921c1ed5a645d8cb8083cf1112a8aa9fa23590a81b2801820957d2375e
+[?2004h]0;useruser@DESKTOP-S8B80KK: /mnt/c/Users/User/Desktop/3_апи/api-technologies-2026-seminar-03-api-interaction[01;32museruser@DESKTOP-S8B80KK[00m:[01;34m/mnt/c/Users/User/Desktop/3_апи/api-technologies-2026-seminar-03-api-interaction[00m$ ]0;useruser@DESKTOP-S8B80KK: /mnt/c/Users/User/Desktop/3_апи/api-technologies-2026-seminar-03-api-interaction[01;32museruser@DESKTOP-S8B80KK[00m:[01;34m/mnt/c/Users/User/Desktop/3_апи/api-technologies-2026-seminar-03-api-interaction[00m$ TOKEN="9b6288cfe110f76d8cf8894b4d7e1af6b24c80f68e51d587419901ffad6f0f684429c4921c1ed5a645d8cb8083cf1112a8aa9fa23590a81b2801820957d2375e"
+[?2004l[?2004h]0;useruser@DESKTOP-S8B80KK: /mnt/c/Users/User/Desktop/3_апи/api-technologies-2026-seminar-03-api-interaction[01;32museruser@DESKTOP-S8B80KK[00m:[01;34m/mnt/c/Users/User/Desktop/3_апи/api-technologies-2026-seminar-03-api-interaction[00m$ ]0;useruser@DESKTOP-S8B80KK: /mnt/c/Users/User/Desktop/3_апи/api-technologies-2026-seminar-03-api-interaction[01;32museruser@DESKTOP-S8B80KK[00m:[01;34m/mnt/c/Users/User/Desktop/3_апи/api-technologies-2026-seminar-03-api-interaction[00m$ echo $TOKEN
+[?2004l9b6288cfe110f76d8cf8894b4d7e1af6b24c80f68e51d587419901ffad6f0f684429c4921c1ed5a645d8cb8083cf1112a8aa9fa23590a81b2801820957d2375e
+[?2004h]0;useruser@DESKTOP-S8B80KK: /mnt/c/Users/User/Desktop/3_апи/api-technologies-2026-seminar-03-api-interaction[01;32museruser@DESKTOP-S8B80KK[00m:[01;34m/mnt/c/Users/User/Desktop/3_апи/api-technologies-2026-seminar-03-api-interaction[00m$ ]0;useruser@DESKTOP-S8B80KK: /mnt/c/Users/User/Desktop/3_апи/api-technologies-2026-seminar-03-api-interaction[01;32museruser@DESKTOP-S8B80KK[00m:[01;34m/mnt/c/Users/User/Desktop/3_апи/api-technologies-2026-seminar-03-api-interaction[00m$ curl -i -X POST http://localhost:8003/v1/process \
+[?2004l[?2004h> -H "Authorization: Bearer $TOKEN" \
+[?2004l[?2004h> -H 'Content-Type: text/csv' \
+[?2004ldata-bin[?2004h> --data-binary $'feature1,feature2,feature3\n1,2.5,hello\n10,0.75,world\n'
+[?2004lHTTP/1.1 401 Unauthorized
+[1mdate[0m: Sun, 27 Sep 2026 13:00:14 GMT
+[1mserver[0m: uvicorn
+[1mcontent-length[0m: 33
+[1mcontent-type[0m: application/json
+
+{"detail":"Invalid bearer token"}[?2004h]0;useruser@DESKTOP-S8B80KK: /mnt/c/Users/User/Desktop/3_апи/api-technologies-2026-seminar-03-api-interaction[01;32museruser@DESKTOP-S8B80KK[00m:[01;34m/mnt/c/Users/User/Desktop/3_апи/api-technologies-2026-seminar-03-api-interaction[00m$ ]0;useruser@DESKTOP-S8B80KK: /mnt/c/Users/User/Desktop/3_апи/api-technologies-2026-seminar-03-api-interaction[01;32museruser@DESKTOP-S8B80KK[00m:[01;34m/mnt/c/Users/User/Desktop/3_апи/api-technologies-2026-seminar-03-api-interaction[00m$ echo $TOKEN
+[?2004l9b6288cfe110f76d8cf8894b4d7e1af6b24c80f68e51d587419901ffad6f0f684429c4921c1ed5a645d8cb8083cf1112a8aa9fa23590a81b2801820957d2375e
+[?2004h]0;useruser@DESKTOP-S8B80KK: /mnt/c/Users/User/Desktop/3_апи/api-technologies-2026-seminar-03-api-interaction[01;32museruser@DESKTOP-S8B80KK[00m:[01;34m/mnt/c/Users/User/Desktop/3_апи/api-technologies-2026-seminar-03-api-interaction[00m$ ]0;useruser@DESKTOP-S8B80KK: /mnt/c/Users/User/Desktop/3_апи/api-technologies-2026-seminar-03-api-interaction[01;32museruser@DESKTOP-S8B80KK[00m:[01;34m/mnt/c/Users/User/Desktop/3_апи/api-technologies-2026-seminar-03-api-interaction[00m$ curl -i -X POST http://localhost:8003/v1/process -H "Authorization: Bearer 9b6288cfe110f76d8cf8894b4d7e1af6b24c80f68e51d587419901ffad6f0f684429c4921c1ed5a645d8cb8083cf1112a8aa9fa23590a81b2801820957d2375e" -H "Content-Type: text/csv" --data-binary $'feature1,feature2,feature3\n1,2.5,hello\n10,0.75,world\n'[A[A[A]0;useruser@DESKTOP-S8B80KK: /mnt/c/Users/User/Desktop/3_апи/api-technologies-2026-seminar-03-api-interaction[01;32museruser@DESKTOP-S8B80KK[00m:[01;34m/mnt/c/Users/User/Desktop/3_апи/api-technologies-2026-seminar-03-api-interaction[00m$ [2Pecho $TOKEN
+[K
+[K
+[K[A[A[A[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[Cъъ [A[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[K
+[K[A[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[K[K[K[K[K[K[K[K[K[K[K[K]0;useruser@DESKTOP-S8B80KK: /mnt/c/Users/User/Desktop/3_апи/api-technologies-2026-seminar-03-api-interaction[01;32museruser@DESKTOP-S8B80KK[00m:[01;34m/mnt/c/Users/User/Desktop/3_апи/api-technologies-2026-seminar-03-api-interaction[00m$ ]0;useruser@DESKTOP-S8B80KK: /mnt/c/Users/User/Desktop/3_апи/api-technologies-2026-seminar-03-api-interaction[01;32museruser@DESKTOP-S8B80KK[00m:[01;34m/mnt/c/Users/User/Desktop/3_апи/api-technologies-2026-seminar-03-api-interaction[00m$ ]0;useruser@DESKTOP-S8B80KK: /mnt/c/Users/User/Desktop/3_апи/api-technologies-2026-seminar-03-api-interaction[01;32museruser@DESKTOP-S8B80KK[00m:[01;34m/mnt/c/Users/User/Desktop/3_апи/api-technologies-2026-seminar-03-api-interaction[00m$ ]0;useruser@DESKTOP-S8B80KK: /mnt/c/Users/User/Desktop/3_апи/api-technologies-2026-seminar-03-api-interaction[01;32museruser@DESKTOP-S8B80KK[00m:[01;34m/mnt/c/Users/User/Desktop/3_апи/api-technologies-2026-seminar-03-api-interaction[00m$ ]0;useruser@DESKTOP-S8B80KK: /mnt/c/Users/User/Desktop/3_апи/api-technologies-2026-seminar-03-api-interaction[01;32museruser@DESKTOP-S8B80KK[00m:[01;34m/mnt/c/Users/User/D
+
+
+Script started on 2026-09-27 20:50:30+03:00 [TERM="xterm-256color" TTY="/dev/pts/5" COLUMNS="120" LINES="30"]
+[?2004h]0;useruser@DESKTOP-S8B80KK: /mnt/c/Users/User/Desktop/3_апи/api-technologies-2026-seminar-03-api-interaction[01;32museruser@DESKTOP-S8B80KK[00m:[01;34m/mnt/c/Users/User/Desktop/3_апи/api-technologies-2026-seminar-03-api-interaction[00m$ 
+]0;useruser@DESKTOP-S8B80KK: /mnt/c/Users/User/Desktop/3_апи/api-technologies-2026-seminar-03-api-interaction[01;32museruser@DESKTOP-S8B80KK[00m:[01;34m/mnt/c/Users/User/Desktop/3_апи/api-technologies-2026-seminar-03-api-interaction[00m$ curl -i -X POST https://seminar03-api.dataprosvet.ru/csv-processor/v1/process \
+[?2004l
+[?2004h> -H "Authorization: Bearer 9b6288cfe110f76d8cf8894b4d7e1af6b24c80f68e51d587419901ffad6f0f684429c4921c1ed5a645d8cb8083cf1112a8aa9fa23590a81b2801820957d2375e" \
+[?2004l
+[?2004h> -H 'Content-Type: text/csv' \
+[?2004l
+[?2004h> --data-binary $'feature1,feature2,feature3\n1,2.5,hello\n10,0.75,world\n'
+[?2004l
+HTTP/2 202 
+
+[1malt-svc[0m: h3=":443"; ma=2592000
+
+[1mcontent-type[0m: application/json
+
+[1mdate[0m: Sun, 27 Sep 2026 17:53:38 GMT
+
+[1mserver[0m: uvicorn
+
+[1mvia[0m: 1.1 Caddy
+
+[1mcontent-length[0m: 49
+
+
+
+{"run_id":"9fe8225b-c03f-4f36-890d-e7f46bbc494d"}[?2004h]0;useruser@DESKTOP-S8B80KK: /mnt/c/Users/User/Desktop/3_апи/api-technologies-2026-seminar-03-api-interaction[01;32museruser@DESKTOP-S8B80KK[00m:[01;34m/mnt/c/Users/User/Desktop/3_апи/api-technologies-2026-seminar-03-api-interaction[00m$ 
+]0;useruser@DESKTOP-S8B80KK: /mnt/c/Users/User/Desktop/3_апи/api-technologies-2026-seminar-03-api-interaction[01;32museruser@DESKTOP-S8B80KK[00m:[01;34m/mnt/c/Users/User/Desktop/3_апи/api-technologies-2026-seminar-03-api-interaction[00m$ curl -i https://seminar03-api.dataprosvet.ru/csv-processor/v1/data/3801d719-9ea5-4895-8a6e-2fade5a65b59 \
+[?2004l
+[?2004h> -H "Authorization: Bearer 9b6288cfe110f76d8cf8894b4d7e1af6b24c80f68e51d587419901ffad6f0f684429c4921c1ed5a645d8cb8083cf1112a8aa9fa23590a81b2801820957d2375e"
+[?2004l
+HTTP/2 404 
+
+[1malt-svc[0m: h3=":443"; ma=2592000
+
+[1mcontent-type[0m: application/json
+
+[1mdate[0m: Sun, 27 Sep 2026 17:53:56 GMT
+
+[1mserver[0m: uvicorn
+
+[1mvia[0m: 1.1 Caddy
+
+[1mcontent-length[0m: 40
+
+
+
+{"detail":"Processed data is not ready"}[?2004h]0;useruser@DESKTOP-S8B80KK: /mnt/c/Users/User/Desktop/3_апи/api-technologies-2026-seminar-03-api-interaction[01;32museruser@DESKTOP-S8B80KK[00m:[01;34m/mnt/c/Users/User/Desktop/3_апи/api-technologies-2026-seminar-03-api-interaction[00m$ 
+]0;useruser@DESKTOP-S8B80KK: /mnt/c/Users/User/Desktop/3_апи/api-technologies-2026-seminar-03-api-interaction[01;32museruser@DESKTOP-S8B80KK[00m:[01;34m/mnt/c/Users/User/Desktop/3_апи/api-technologies-2026-seminar-03-api-interaction[00m$ учш[K[K[K
+]0;useruser@DESKTOP-S8B80KK: /mnt/c/Users/User/Desktop/3_апи/api-technologies-2026-seminar-03-api-interaction[01;32museruser@DESKTOP-S8B80KK[00m:[01;34m/mnt/c/Users/User/Desktop/3_апи/api-technologies-2026-seminar-03-api-interaction[00m$ exit
+[?2004l
+exit
+
+Script done on 2026-09-27 20:55:18+03:00 [COMMAND_EXIT_CODE="0"]
